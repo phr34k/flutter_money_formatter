@@ -16,12 +16,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     TextStyle titleStyle =
-        TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold);
-    TextStyle subtitleStyle = TextStyle(fontSize: 20.0);
+        const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold);
+    TextStyle subtitleStyle = const TextStyle(fontSize: 20.0);
 
     FlutterMoneyFormatter fmf = FlutterMoneyFormatter(amount: 12345678.9012345);
 
-    MoneyFormatterOutput fo = fmf.output;
+    MoneyFormatterOutput fo = fmf.output!;
 
     return MaterialApp(
       home: Scaffold(
@@ -30,9 +30,9 @@ class _MyAppState extends State<MyApp> {
           ),
           body: SingleChildScrollView(
             child: ConstrainedBox(
-                constraints: BoxConstraints(),
+                constraints: const BoxConstraints(),
                 child: Container(
-                  padding: EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -93,9 +93,10 @@ class _MyAppState extends State<MyApp> {
                         ),
                         subtitle: Text(
                           fmf
-                              .copyWith(amount: 123.4567, fractionDigits: 4)
-                              .output
-                              .nonSymbol,
+                                  .copyWith(amount: 123.4567, fractionDigits: 4)
+                                  .output
+                                  ?.nonSymbol ??
+                              "",
                           style: subtitleStyle,
                         ),
                       ),
@@ -106,10 +107,12 @@ class _MyAppState extends State<MyApp> {
                         ),
                         subtitle: Text(
                           fmf
-                              .copyWith(
-                                  symbol: 'IDR', symbolAndNumberSeparator: '-')
-                              .output
-                              .symbolOnLeft,
+                                  .copyWith(
+                                      symbol: 'IDR',
+                                      symbolAndNumberSeparator: '-')
+                                  .output
+                                  ?.symbolOnLeft ??
+                              "",
                           style: subtitleStyle,
                         ),
                       ),
@@ -120,9 +123,10 @@ class _MyAppState extends State<MyApp> {
                         ),
                         subtitle: Text(
                           fmf
-                              .copyWith(amount: 12345678987654321.9012345)
-                              .output
-                              .compactNonSymbol,
+                                  .copyWith(amount: 12345678987654321.9012345)
+                                  .output
+                                  ?.compactNonSymbol ??
+                              "",
                           style: subtitleStyle,
                         ),
                       ),
@@ -133,11 +137,12 @@ class _MyAppState extends State<MyApp> {
                         ),
                         subtitle: Text(
                           fmf
-                              .copyWith(
-                                  amount: 12345678987654321.9012345,
-                                  compactFormatType: CompactFormatType.long)
-                              .output
-                              .compactNonSymbol,
+                                  .copyWith(
+                                      amount: 12345678987654321.9012345,
+                                      compactFormatType: CompactFormatType.long)
+                                  .output
+                                  ?.compactNonSymbol ??
+                              "",
                           style: subtitleStyle,
                         ),
                       ),
@@ -148,9 +153,10 @@ class _MyAppState extends State<MyApp> {
                         ),
                         subtitle: Text(
                           fmf
-                              .copyWith(amount: 1234.56789)
-                              .output
-                              .compactSymbolOnLeft,
+                                  .copyWith(amount: 1234.56789)
+                                  .output
+                                  ?.compactSymbolOnLeft ??
+                              "",
                           style: subtitleStyle,
                         ),
                       ),
@@ -161,11 +167,13 @@ class _MyAppState extends State<MyApp> {
                         ),
                         subtitle: Text(
                           fmf
-                              .copyWith(
-                                  amount: 123456.7890,
-                                  compactFormatType: CompactFormatType.short)
-                              .output
-                              .compactSymbolOnRight,
+                                  .copyWith(
+                                      amount: 123456.7890,
+                                      compactFormatType:
+                                          CompactFormatType.short)
+                                  .output
+                                  ?.compactSymbolOnRight ??
+                              "",
                           style: subtitleStyle,
                         ),
                       ),
@@ -175,7 +183,7 @@ class _MyAppState extends State<MyApp> {
                           style: titleStyle,
                         ),
                         subtitle: Text(
-                          '${FlutterMoneyFormatter(amount: 12345.678).fastCalc(type: FastCalcType.addition, amount: 1.111).fastCalc(type: FastCalcType.substraction, amount: 2.222).output.nonSymbol}',
+                          '${FlutterMoneyFormatter(amount: 12345.678).fastCalc(type: FastCalcType.addition, amount: 1.111).fastCalc(type: FastCalcType.substraction, amount: 2.222).output?.nonSymbol}',
                           style: subtitleStyle,
                         ),
                       ),
@@ -185,7 +193,7 @@ class _MyAppState extends State<MyApp> {
                           style: titleStyle,
                         ),
                         subtitle: Text(
-                          '${fmf.fastCalc(type: FastCalcType.addition, amount: 1234.567).fastCalc(type: FastCalcType.substraction, amount: 234.5678).output.nonSymbol}',
+                          '${fmf.fastCalc(type: FastCalcType.addition, amount: 1234.567).fastCalc(type: FastCalcType.substraction, amount: 234.5678).output?.nonSymbol}',
                           style: subtitleStyle,
                         ),
                       ),
@@ -195,7 +203,7 @@ class _MyAppState extends State<MyApp> {
                           style: titleStyle,
                         ),
                         subtitle: Text(
-                          '${fmf.comparator.isEqual(5000)}',
+                          '${fmf.comparator!.isEqual(5000)}',
                           style: subtitleStyle,
                         ),
                       )
